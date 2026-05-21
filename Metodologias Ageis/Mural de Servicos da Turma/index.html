@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mural de Servicos da Turma</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="topo">
+    <p class="etiqueta">Engenharia de Software - Lucca Abbado Neres Met Ageis</p>
+    <h1>Mural de Servicos da Turma</h1>
+    <p>
+      Um projeto simples para praticar Git, GitHub, Pull Request,
+      revisao de codigo, build e deploy.
+    </p>
+  </header>
+
+  <main class="container">
+    <section class="painel">
+      <h2>Buscar servico</h2>
+      <input
+        id="busca"
+        type="text"
+        placeholder="Digite uma palavra-chave..."
+      />
+      <p id="mensagem" class="mensagem">Digite para filtrar os cards.</p>
+    </section>
+
+    <section id="servicos" class="grade-servicos">
+      <article class="card" data-categoria="design">
+        <h3>Identidade visual simples</h3>
+        <p>
+          Criacao de paleta de cores, nome visual e modelo de post
+          para pequenos projetos academicos.
+        </p>
+        <span>Categoria: Design</span>
+      </article>
+
+      <article class="card" data-categoria="design">
+        <h3>Identidade visual simples</h3>
+        <p>
+          Criacao de paleta de cores, nome visual e modelo de post
+          para pequenos projetos academicos.
+        </p>
+        <span>TESTEEEEE</span>
+      </article>
+
+      <article class="card" data-categoria="tecnologia">
+        <h3>Formatacao de trabalhos</h3>
+        <p>
+          Apoio na organizacao visual de trabalhos, slides e arquivos
+          para apresentacoes em sala.
+        </p>
+        <span>Categoria: Tecnologia</span>
+      </article>
+    </section>
+  </main>
+
+  <footer>
+    <p>Projeto didatico de Git e GitHub.</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>

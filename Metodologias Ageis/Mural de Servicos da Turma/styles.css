@@ -1,0 +1,83 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f5f3;
+    color: #1f2933;
+  }
+  
+  .topo {
+    background: #004823;
+    color: white;
+    padding: 40px 24px;
+    text-align: center;
+  }
+  
+  .etiqueta {
+    display: inline-block;
+    background: #e31e24;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-weight: bold;
+  }
+  
+  .container {
+    width: min(1000px, 92%);
+    margin: 24px auto;
+  }
+  
+  .painel {
+    background: white;
+    padding: 20px;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    margin-bottom: 20px;
+  }
+  
+  input {
+    width: 100%;
+    padding: 12px;
+    border: 2px solid #dde5e1;
+    border-radius: 10px;
+    font-size: 16px;
+  }
+  
+  .mensagem {
+    color: #52616b;
+    font-size: 14px;
+  }
+  
+  .grade-servicos {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 16px;
+  }
+  
+  .card {
+    background: white;
+    border-left: 6px solid #0969da;
+    border-radius: 16px;
+    padding: 18px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  }
+  
+  .card h3 {
+    margin-top: 0;
+    color: #004823;
+  }
+  
+  .card span {
+    display: inline-block;
+    margin-top: 10px;
+    color: #e31e24;
+    font-weight: bold;
+  }
+  
+  footer {
+    text-align: center;
+    padding: 24px;
+    color: #52616b;
+  }

@@ -1,0 +1,29 @@
+name: Validacao simples
+
+on:
+  pull_request:
+    branches: ["main"]
+  push:
+    branches: ["main"]
+
+jobs:
+  validar-projeto:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Baixar codigo do repositorio
+        uses: actions/checkout@v4
+
+      - name: Conferir arquivos obrigatorios
+        run: |
+          test -f index.html
+          test -f styles.css
+          test -f script.js
+          test -f README.md
+
+      - name: Procurar marcas de conflito do Git
+        run: |
+          ! grep -R -n -E '(<{7}|={7}|>{7})' . --exclude-dir=.git
+
+      - name: Mensagem final
+        run: echo "Validacao concluida com sucesso."

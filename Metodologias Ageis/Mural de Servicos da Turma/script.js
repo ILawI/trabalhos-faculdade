@@ -1,0 +1,1 @@
+console.log("Projeto iniciado. A busca sera implementada por um dev.");
