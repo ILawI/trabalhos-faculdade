@@ -12,19 +12,10 @@ public class Main {
     public static void main(String[] args) {
         int opcao;
 
-        jogos.add(new Jogo(proximoId++, "GTA V", "Ação", "PC"));
-        jogos.add(new Jogo(proximoId++, "ARK: Survival Ascended", "Sobrevivência", "PC"));
-        jogos.add(new Jogo(proximoId++, "Valorant", "Tiro", "PC"));
+        cadastrarJogosIniciais();
 
         do {
-            System.out.println("\n========== SISTEMA DE GERENCIAMENTO ==========");
-            System.out.println("1 - Cadastrar");
-            System.out.println("2 - Listar todos");
-            System.out.println("3 - Buscar por ID");
-            System.out.println("4 - Atualizar");
-            System.out.println("5 - Excluir");
-            System.out.println("0 - Sair");
-            System.out.print("Escolha uma opção: ");
+            mostrarMenu();
             opcao = lerNumero();
 
             switch (opcao) {
@@ -50,92 +41,131 @@ public class Main {
                     System.out.println("Opção inválida!");
             }
         } while (opcao != 0);
+
+        scan.close();
     }
 
-    static int lerNumero() {
+    private static void cadastrarJogosIniciais() {
+        jogos.add(new Jogo(proximoId++, "GTA V", "Ação / Mundo aberto", "PC"));
+        jogos.add(new Jogo(proximoId++, "ARK: Survival Ascended", "Sobrevivência", "PC"));
+        jogos.add(new Jogo(proximoId++, "Valorant", "Tiro (FPS)", "PC"));
+    }
+
+    private static void mostrarMenu() {
+        System.out.println("\n========== SISTEMA DE GERENCIAMENTO ==========");
+        System.out.println("1 - Cadastrar");
+        System.out.println("2 - Listar todos");
+        System.out.println("3 - Buscar por ID");
+        System.out.println("4 - Atualizar");
+        System.out.println("5 - Excluir");
+        System.out.println("0 - Sair");
+        System.out.print("Escolha uma opção: ");
+    }
+
+    private static int lerNumero() {
         try {
-            return Integer.parseInt(scan.nextLine());
-        } catch (Exception e) {
+            return Integer.parseInt(scan.nextLine().trim());
+        } catch (NumberFormatException e) {
             return -1;
         }
     }
 
-    static void mostrar(Jogo jogo) {
-        System.out.println(jogo.getId() + " - " + jogo.getNome() + " | " + jogo.getGenero() + " | " + jogo.getPlataforma());
+    private static String lerTexto(String mensagem) {
+        String texto;
+
+        do {
+            System.out.print(mensagem);
+            texto = scan.nextLine().trim();
+            if (texto.isEmpty()) {
+                System.out.println("Esse campo não pode ficar vazio!");
+            }
+        } while (texto.isEmpty());
+
+        return texto;
     }
 
-    static Jogo buscarPorId() {
-        if (jogos.isEmpty()) {
-            System.out.println("Nenhum jogo cadastrado.");
-            return null;
-        }
-
-        System.out.print("Digite o ID: ");
-        int id = lerNumero();
-
+    private static Jogo procurarPorId(int id) {
         for (Jogo jogo : jogos) {
             if (jogo.getId() == id) {
                 return jogo;
             }
         }
-
-        System.out.println("ID não encontrado.");
         return null;
     }
 
-    static void cadastrar() {
-        System.out.print("Nome: ");
-        String nome = scan.nextLine();
-        System.out.print("Gênero: ");
-        String genero = scan.nextLine();
-        System.out.print("Plataforma: ");
-        String plataforma = scan.nextLine();
+    private static Jogo pedirJogo() {
+        Jogo jogo;
 
-        jogos.add(new Jogo(proximoId++, nome, genero, plataforma));
-        System.out.println("Jogo cadastrado!");
+        if (jogos.isEmpty()) {
+            System.out.println("Nenhum jogo cadastrado.");
+            return null;
+        }
+
+        System.out.print("Digite o ID do jogo: ");
+        jogo = procurarPorId(lerNumero());
+
+        if (jogo == null) {
+            System.out.println("Não existe jogo com esse ID.");
+        }
+        return jogo;
     }
 
-    static void listar() {
+    private static void cadastrar() {
+        String nome = lerTexto("Nome: ");
+        String genero = lerTexto("Gênero: ");
+        String plataforma = lerTexto("Plataforma: ");
+
+        Jogo jogo = new Jogo(proximoId, nome, genero, plataforma);
+        jogos.add(jogo);
+        proximoId++;
+
+        System.out.println("Jogo cadastrado com o ID " + jogo.getId() + "!");
+    }
+
+    private static void listar() {
         if (jogos.isEmpty()) {
             System.out.println("Nenhum jogo cadastrado.");
             return;
         }
 
+        System.out.println("\n---------- Lista de jogos ----------");
         for (Jogo jogo : jogos) {
-            mostrar(jogo);
+            jogo.exibir();
         }
     }
 
-    static void buscar() {
-        Jogo jogo = buscarPorId();
+    private static void buscar() {
+        Jogo jogo = pedirJogo();
 
         if (jogo != null) {
-            mostrar(jogo);
+            jogo.exibir();
         }
     }
 
-    static void atualizar() {
-        Jogo jogo = buscarPorId();
+    private static void atualizar() {
+        Jogo jogo = pedirJogo();
 
         if (jogo == null) {
             return;
         }
 
-        System.out.print("Novo nome: ");
-        jogo.setNome(scan.nextLine());
-        System.out.print("Novo gênero: ");
-        jogo.setGenero(scan.nextLine());
-        System.out.print("Nova plataforma: ");
-        jogo.setPlataforma(scan.nextLine());
-        System.out.println("Jogo atualizado!");
+        jogo.exibir();
+        System.out.println("Digite os novos dados:");
+        jogo.setNome(lerTexto("Nome: "));
+        jogo.setGenero(lerTexto("Gênero: "));
+        jogo.setPlataforma(lerTexto("Plataforma: "));
+
+        System.out.println("Jogo atualizado com sucesso!");
     }
 
-    static void excluir() {
-        Jogo jogo = buscarPorId();
+    private static void excluir() {
+        Jogo jogo = pedirJogo();
 
-        if (jogo != null) {
-            jogos.remove(jogo);
-            System.out.println("Jogo excluído!");
+        if (jogo == null) {
+            return;
         }
+
+        jogos.remove(jogo);
+        System.out.println("Jogo " + jogo.getNome() + " excluído com sucesso!");
     }
 }
