@@ -9,7 +9,6 @@ public class Livro {
     public Livro(String titulo, String autor) {
         this.titulo = titulo;
         this.autor = autor;
-        this.emprestado = false;
     }
 
     public String getTitulo() {
@@ -26,12 +25,5 @@ public class Livro {
 
     public void setEmprestado(boolean emprestado) {
         this.emprestado = emprestado;
-    }
-
-    public String getSituacao() {
-        if (emprestado) {
-            return "Emprestado";
-        }
-        return "Disponível";
     }
 }

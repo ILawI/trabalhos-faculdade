@@ -18,10 +18,6 @@ public class Jogo {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getNome() {
         return nome;
     }
@@ -44,13 +40,5 @@ public class Jogo {
 
     public void setPlataforma(String plataforma) {
         this.plataforma = plataforma;
-    }
-
-    public void exibir() {
-        System.out.println("ID: " + id);
-        System.out.println("Nome: " + nome);
-        System.out.println("Gênero: " + genero);
-        System.out.println("Plataforma: " + plataforma);
-        System.out.println("------------------------------");
     }
 }

@@ -1,184 +1,183 @@
 package biblioteca;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
 
     static Scanner scan = new Scanner(System.in);
-    static Biblioteca biblioteca = new Biblioteca();
+    static ArrayList<Livro> livros = new ArrayList<>();
+    static ArrayList<Usuario> usuarios = new ArrayList<>();
 
     public static void main(String[] args) {
         int opcao;
 
-        popularDados();
-        System.out.println("Sistema da biblioteca iniciado!");
+        usuarios.add(new Usuario("Ana"));
+        usuarios.add(new Usuario("Bruno"));
+        usuarios.add(new Usuario("Carla"));
+        livros.add(new Livro("Dom Casmurro", "Machado de Assis"));
+        livros.add(new Livro("O Cortiço", "Aluísio Azevedo"));
+        livros.add(new Livro("Vidas Secas", "Graciliano Ramos"));
+        livros.add(new Livro("O Pequeno Príncipe", "Antoine de Saint-Exupéry"));
+        livros.add(new Livro("O Hobbit", "J. R. R. Tolkien"));
 
         do {
-            mostrarMenu();
+            System.out.println("\n========== BIBLIOTECA ==========");
+            System.out.println("1 - Listar livros");
+            System.out.println("2 - Cadastrar livro");
+            System.out.println("3 - Excluir livro");
+            System.out.println("4 - Emprestar livro");
+            System.out.println("5 - Devolver livro");
+            System.out.println("6 - Cadastrar usuário");
+            System.out.println("7 - Listar usuários");
+            System.out.println("0 - Sair");
+            System.out.print("Escolha uma opção: ");
             opcao = lerNumero();
-            escolherOpcao(opcao);
+
+            switch (opcao) {
+                case 1:
+                    listarLivros();
+                    break;
+                case 2:
+                    cadastrarLivro();
+                    break;
+                case 3:
+                    excluirLivro();
+                    break;
+                case 4:
+                    emprestarLivro();
+                    break;
+                case 5:
+                    devolverLivro();
+                    break;
+                case 6:
+                    cadastrarUsuario();
+                    break;
+                case 7:
+                    listarUsuarios();
+                    break;
+                case 0:
+                    System.out.println("Sistema encerrado!");
+                    break;
+                default:
+                    System.out.println("Opção inválida!");
+            }
         } while (opcao != 0);
-
-        scan.close();
     }
 
-    private static void popularDados() {
-        biblioteca.cadastrarUsuario("Ana");
-        biblioteca.cadastrarUsuario("Bruno");
-        biblioteca.cadastrarUsuario("Carla");
-        biblioteca.cadastrarUsuario("Diego");
-
-        biblioteca.cadastrarLivro("Dom Casmurro", "Machado de Assis");
-        biblioteca.cadastrarLivro("Memórias Póstumas de Brás Cubas", "Machado de Assis");
-        biblioteca.cadastrarLivro("O Cortiço", "Aluísio Azevedo");
-        biblioteca.cadastrarLivro("Capitães da Areia", "Jorge Amado");
-        biblioteca.cadastrarLivro("Vidas Secas", "Graciliano Ramos");
-        biblioteca.cadastrarLivro("O Pequeno Príncipe", "Antoine de Saint-Exupéry");
-        biblioteca.cadastrarLivro("Harry Potter e a Pedra Filosofal", "J. K. Rowling");
-        biblioteca.cadastrarLivro("O Hobbit", "J. R. R. Tolkien");
-        biblioteca.cadastrarLivro("1984", "George Orwell");
-        biblioteca.cadastrarLivro("A Revolução dos Bichos", "George Orwell");
-    }
-
-    private static void mostrarMenu() {
-        System.out.println("\n========== BIBLIOTECA ==========");
-        System.out.println("1 - Listar livros");
-        System.out.println("2 - Buscar livro");
-        System.out.println("3 - Cadastrar livro");
-        System.out.println("4 - Excluir livro");
-        System.out.println("5 - Cadastrar usuário");
-        System.out.println("6 - Listar usuários");
-        System.out.println("7 - Emprestar livro");
-        System.out.println("8 - Devolver livro");
-        System.out.println("9 - Histórico de empréstimos");
-        System.out.println("0 - Sair");
-        System.out.print("Escolha uma opção: ");
-    }
-
-    private static void escolherOpcao(int opcao) {
-        switch (opcao) {
-            case 1:
-                biblioteca.listarLivros();
-                break;
-            case 2:
-                buscarLivro();
-                break;
-            case 3:
-                cadastrarLivro();
-                break;
-            case 4:
-                excluirLivro();
-                break;
-            case 5:
-                cadastrarUsuario();
-                break;
-            case 6:
-                biblioteca.listarUsuarios();
-                break;
-            case 7:
-                emprestarLivro();
-                break;
-            case 8:
-                devolverLivro();
-                break;
-            case 9:
-                biblioteca.listarEmprestimos();
-                break;
-            case 0:
-                System.out.println("Sistema encerrado. Obrigado por utilizar!");
-                break;
-            default:
-                System.out.println("Opção inválida!");
-        }
-    }
-
-    private static int lerNumero() {
+    static int lerNumero() {
         try {
-            return Integer.parseInt(scan.nextLine().trim());
-        } catch (NumberFormatException e) {
+            return Integer.parseInt(scan.nextLine());
+        } catch (Exception e) {
             return -1;
         }
     }
 
-    private static void buscarLivro() {
-        System.out.print("Digite o título ou o autor: ");
-        String texto = scan.nextLine();
-        biblioteca.buscarLivro(texto);
+    static void listarLivros() {
+        for (int i = 0; i < livros.size(); i++) {
+            Livro livro = livros.get(i);
+            String situacao = livro.isEmprestado() ? "Emprestado" : "Disponível";
+            System.out.println((i + 1) + ") " + livro.getTitulo() + " - " + livro.getAutor() + " (" + situacao + ")");
+        }
     }
 
-    private static void cadastrarLivro() {
+    static void listarUsuarios() {
+        for (int i = 0; i < usuarios.size(); i++) {
+            System.out.println((i + 1) + ") " + usuarios.get(i).getNome());
+            for (Livro livro : usuarios.get(i).getLivros()) {
+                System.out.println("   - " + livro.getTitulo());
+            }
+        }
+    }
+
+    static void cadastrarLivro() {
         System.out.print("Título: ");
         String titulo = scan.nextLine();
         System.out.print("Autor: ");
         String autor = scan.nextLine();
 
-        if (titulo.isBlank() || autor.isBlank()) {
-            System.out.println("Título e autor não podem ficar em branco!");
-            return;
-        }
-
-        biblioteca.cadastrarLivro(titulo, autor);
-        System.out.println("Livro cadastrado com sucesso!");
+        livros.add(new Livro(titulo, autor));
+        System.out.println("Livro cadastrado!");
     }
 
-    private static void excluirLivro() {
-        if (!biblioteca.temLivros()) {
-            System.out.println("Não tem livros para excluir.");
-            return;
-        }
-
-        biblioteca.listarLivros();
-        System.out.print("Número do livro que vai ser excluído: ");
-        biblioteca.excluirLivro(lerNumero());
+    static void cadastrarUsuario() {
+        System.out.print("Nome: ");
+        usuarios.add(new Usuario(scan.nextLine()));
+        System.out.println("Usuário cadastrado!");
     }
 
-    private static void cadastrarUsuario() {
-        System.out.print("Nome do usuário: ");
-        String nome = scan.nextLine();
-
-        if (nome.isBlank()) {
-            System.out.println("O nome não pode ficar em branco!");
-            return;
-        }
-
-        biblioteca.cadastrarUsuario(nome);
-        System.out.println("Usuário cadastrado com sucesso!");
-    }
-
-    private static void emprestarLivro() {
-        int usuario;
-
-        if (!biblioteca.temUsuarios() || !biblioteca.temLivros()) {
-            System.out.println("Precisa ter pelo menos um usuário e um livro cadastrado.");
-            return;
-        }
-
-        biblioteca.listarUsuarios();
-        System.out.print("Número do usuário que vai pegar o livro: ");
-        usuario = lerNumero();
-
-        biblioteca.listarLivros();
+    static void excluirLivro() {
+        listarLivros();
         System.out.print("Número do livro: ");
-        biblioteca.emprestarLivro(usuario, lerNumero());
+        int l = lerNumero() - 1;
+
+        if (l < 0 || l >= livros.size()) {
+            System.out.println("Livro inválido!");
+        } else if (livros.get(l).isEmprestado()) {
+            System.out.println("Livro emprestado não pode ser excluído!");
+        } else {
+            livros.remove(l);
+            System.out.println("Livro excluído!");
+        }
     }
 
-    private static void devolverLivro() {
-        int usuario;
+    static void emprestarLivro() {
+        listarUsuarios();
+        System.out.print("Número do usuário: ");
+        int u = lerNumero() - 1;
 
-        if (!biblioteca.temUsuarios()) {
-            System.out.println("Nenhum usuário cadastrado.");
+        if (u < 0 || u >= usuarios.size()) {
+            System.out.println("Usuário inválido!");
+            return;
+        }
+        if (usuarios.get(u).getLivros().size() == 2) {
+            System.out.println("Esse usuário já tem 2 livros. Devolva um antes!");
             return;
         }
 
-        biblioteca.listarUsuarios();
-        System.out.print("Número do usuário que vai devolver: ");
-        usuario = lerNumero();
+        listarLivros();
+        System.out.print("Número do livro: ");
+        int l = lerNumero() - 1;
 
-        if (!biblioteca.mostrarLivrosDoUsuario(usuario)) {
+        if (l < 0 || l >= livros.size()) {
+            System.out.println("Livro inválido!");
+        } else if (livros.get(l).isEmprestado()) {
+            System.out.println("Esse livro já está emprestado!");
+        } else {
+            livros.get(l).setEmprestado(true);
+            usuarios.get(u).getLivros().add(livros.get(l));
+            System.out.println("Livro emprestado!");
+        }
+    }
+
+    static void devolverLivro() {
+        listarUsuarios();
+        System.out.print("Número do usuário: ");
+        int u = lerNumero() - 1;
+
+        if (u < 0 || u >= usuarios.size()) {
+            System.out.println("Usuário inválido!");
             return;
         }
 
-        System.out.print("Número do livro que vai ser devolvido: ");
-        biblioteca.devolverLivro(usuario, lerNumero());
+        ArrayList<Livro> livrosDoUsuario = usuarios.get(u).getLivros();
+        if (livrosDoUsuario.isEmpty()) {
+            System.out.println("Esse usuário não tem livros emprestados.");
+            return;
+        }
+
+        for (int i = 0; i < livrosDoUsuario.size(); i++) {
+            System.out.println((i + 1) + ") " + livrosDoUsuario.get(i).getTitulo());
+        }
+        System.out.print("Número do livro: ");
+        int l = lerNumero() - 1;
+
+        if (l < 0 || l >= livrosDoUsuario.size()) {
+            System.out.println("Livro inválido!");
+        } else {
+            livrosDoUsuario.get(l).setEmprestado(false);
+            livrosDoUsuario.remove(l);
+            System.out.println("Livro devolvido!");
+        }
     }
 }
