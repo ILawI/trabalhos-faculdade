@@ -1,3 +1,3 @@
 # trabalhos-faculdade
 
-Trabalhos da faculdade.
+Trabalhos da faculdade de Engenharia de Software.
