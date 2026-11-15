@@ -1,7 +1,5 @@
-// Atividade 1 - Classe Estacionamento
 public class Estacionamento {
 
-    // Regras de cobrança guardadas como constantes, assim fica fácil mudar depois
     private static final int MINUTOS_INICIAIS = 30;
     private static final double VALOR_INICIAL = 5.00;
     private static final double VALOR_POR_MINUTO_EXTRA = 0.10;
@@ -19,8 +17,6 @@ public class Estacionamento {
         this.valorPago = 0.0;
     }
 
-    // Aumenta o tempo estacionado. Não aceita valor negativo,
-    // senão o tempo total poderia ficar negativo.
     public void adicionarTempo(int minutos) {
         if (minutos < 0) {
             System.out.println("Erro: não é possível adicionar tempo negativo (" + minutos + " min).");
@@ -30,10 +26,6 @@ public class Estacionamento {
         System.out.println("Adicionados " + minutos + " min. Total: " + minutosEstacionado + " min.");
     }
 
-    // Calcula o valor a pagar:
-    // até 30 min -> R$ 5,00
-    // acima disso -> R$ 5,00 + R$ 0,10 por minuto extra
-    // nunca passa de R$ 30,00
     public double calcularValor() {
         double valor;
 

@@ -1,4 +1,3 @@
-// Atividade 3 - Classe Campeonato (Time)
 public class Time {
 
     private String nome;
@@ -15,8 +14,6 @@ public class Time {
         this.pontos = 0;
     }
 
-    // Cada método atualiza o contador do resultado e os pontos ao mesmo tempo,
-    // então os pontos nunca ficam "desencontrados" dos resultados.
     public void registrarVitoria() {
         vitorias++;
         pontos += 3;
@@ -29,7 +26,6 @@ public class Time {
 
     public void registrarDerrota() {
         derrotas++;
-        // derrota vale 0 pontos, então os pontos não mudam
     }
 
     public int getPontos() {

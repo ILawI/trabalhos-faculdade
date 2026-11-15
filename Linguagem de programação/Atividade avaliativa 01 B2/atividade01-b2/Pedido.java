@@ -1,11 +1,10 @@
-// Atividade 5 - Classe Pedido de Restaurante
 public class Pedido {
 
     private String nomeCliente;
     private int quantidadeLanches;
     private double precoLanche;
     private double taxaEntrega;
-    private String status; // "ABERTO" ou "FINALIZADO"
+    private String status;
 
     public Pedido(String nomeCliente) {
         this.nomeCliente = nomeCliente;
@@ -15,7 +14,6 @@ public class Pedido {
         this.status = "ABERTO";
     }
 
-    // Retorna true se conseguiu adicionar e false se a operação foi bloqueada.
     public boolean adicionarLanches(int quantidade) {
         if (status.equals("FINALIZADO")) {
             System.out.println("Não é possível adicionar lanches: o pedido já foi finalizado.");
@@ -30,8 +28,6 @@ public class Pedido {
         return true;
     }
 
-    // Total = valor dos lanches (com 10% de desconto se forem 3 ou mais) + taxa de entrega.
-    // O desconto é só sobre os lanches, não sobre a entrega.
     public double calcularTotal() {
         double valorLanches = quantidadeLanches * precoLanche;
 

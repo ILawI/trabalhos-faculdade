@@ -1,4 +1,3 @@
-// Atividade 4 - Classe Cofrinho
 public class Cofrinho {
 
     private String dono;

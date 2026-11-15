@@ -1,21 +1,18 @@
-import sqlite3  # modulo de banco SQLite, ja' embutido no Python
+import sqlite3
 
-# Nome do arquivo onde o banco inteiro ficara' guardado
 NOME_BANCO = "banco.db"
 
 def conectar():
     """Abre (ou cria, se nao existir) o arquivo do banco e retorna a conexao."""
     conexao = sqlite3.connect(NOME_BANCO)
-    # Faz cada linha vir como um dicionario {coluna: valor}, mais facil de usar
     conexao.row_factory = sqlite3.Row
     return conexao
 
 def criar_tabelas():
     """Cria as tabelas usuarios e eventos, se ainda nao existirem."""
     conexao = conectar()
-    cursor = conexao.cursor()  # o cursor executa os comandos SQL
+    cursor = conexao.cursor()
 
-    # Tabela de administradores (atende H1 - login)
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS usuarios (
             id          INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -24,7 +21,6 @@ def criar_tabelas():
         )
     """)
 
-    # Tabela de eventos do cronograma (atende H2, H3, H4, H5)
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS eventos (
             id           INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -36,13 +32,11 @@ def criar_tabelas():
         )
     """)
 
-    conexao.commit()  # confirma (salva) as mudancas no arquivo
-    conexao.close()   # fecha a conexao
+    conexao.commit()
+    conexao.close()
     print("Tabelas criadas com sucesso!")
 
-# Se rodarmos este arquivo diretamente, cria as tabelas
 if __name__ == "__main__":
     criar_tabelas()
-
 
     

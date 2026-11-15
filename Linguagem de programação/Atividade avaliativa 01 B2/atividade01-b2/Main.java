@@ -1,4 +1,3 @@
-// Programa principal que executa as 5 atividades em sequência
 public class Main {
 
     public static void main(String[] args) {
@@ -16,21 +15,19 @@ public class Main {
         System.out.println("========================================");
     }
 
-    // Atividade 1: cria um veículo, adiciona tempo e mostra o valor
     static void atividade1() {
         titulo("ATIVIDADE 1 - ESTACIONAMENTO");
 
         Estacionamento carro = new Estacionamento("ABC1D23", "Onix");
         carro.adicionarTempo(40);
         carro.adicionarTempo(35);
-        carro.adicionarTempo(-10); // testa a regra do tempo negativo
+        carro.adicionarTempo(-10);
 
         double valor = carro.calcularValor();
         System.out.printf("Valor calculado: R$ %.2f%n", valor);
         carro.exibirResumo();
     }
 
-    // Atividade 2: duas compras, uma delas com problema
     static void atividade2() {
         titulo("ATIVIDADE 2 - MÁQUINA DE REFRIGERANTES");
 
@@ -38,20 +35,19 @@ public class Main {
         maquina.exibirEstado();
 
         System.out.println();
-        maquina.comprar(2, 10.00); // compra válida, com troco
+        maquina.comprar(2, 10.00);
 
         System.out.println();
-        maquina.comprar(2, 5.00);  // dinheiro insuficiente
+        maquina.comprar(2, 5.00);
 
         System.out.println();
-        maquina.comprar(10, 50.00); // estoque insuficiente
+        maquina.comprar(10, 50.00);
 
         System.out.println();
         maquina.reporEstoque(10);
         maquina.exibirEstado();
     }
 
-    // Atividade 3: dois times com resultados diferentes e comparação de pontos
     static void atividade3() {
         titulo("ATIVIDADE 3 - CAMPEONATO");
 
@@ -81,23 +77,21 @@ public class Main {
         }
     }
 
-    // Atividade 4: depósitos, retirada acima do saldo e verificação da meta
     static void atividade4() {
         titulo("ATIVIDADE 4 - COFRINHO");
 
         Cofrinho cofrinho = new Cofrinho("Arthur", 200.00);
         cofrinho.depositar(50.00);
         cofrinho.depositar(80.00);
-        cofrinho.depositar(-20.00); // testa depósito inválido
+        cofrinho.depositar(-20.00);
         cofrinho.exibirSaldo();
 
-        cofrinho.retirar(500.00);   // retirada acima do saldo
+        cofrinho.retirar(500.00);
         cofrinho.exibirSaldo();
 
         cofrinho.verificarMeta();
     }
 
-    // Atividade 5: pedido com lanches em duas operações, finaliza e tenta adicionar mais
     static void atividade5() {
         titulo("ATIVIDADE 5 - PEDIDO DE RESTAURANTE");
 

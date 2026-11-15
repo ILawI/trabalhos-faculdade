@@ -1,4 +1,3 @@
-// Atividade 2 - Classe Máquina de Refrigerantes
 public class MaquinaRefrigerante {
 
     private int quantidadeEstoque;
@@ -7,13 +6,10 @@ public class MaquinaRefrigerante {
 
     public MaquinaRefrigerante(int quantidadeEstoque) {
         this.quantidadeEstoque = quantidadeEstoque;
-        this.preco = 4.50; // cada refrigerante custa R$ 4,50
+        this.preco = 4.50;
         this.dinheiroArrecadado = 0.0;
     }
 
-    // Tenta realizar uma compra. Retorna true se deu certo e false se teve problema.
-    // A ordem das verificações importa: só mexe no estoque e no caixa
-    // depois de garantir que está tudo certo.
     public boolean comprar(int quantidade, double valorPago) {
         System.out.println("Tentando comprar " + quantidade + " refrigerante(s) pagando R$ "
                 + String.format("%.2f", valorPago) + "...");
@@ -37,7 +33,6 @@ public class MaquinaRefrigerante {
             return false;
         }
 
-        // Daqui pra baixo a compra é válida
         quantidadeEstoque -= quantidade;
         dinheiroArrecadado += valorTotal;
 
